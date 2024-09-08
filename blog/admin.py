@@ -1,8 +1,10 @@
 from django.contrib import admin
+from blog.forms import BlogForm
 from .models import Blog, Category
 from django.utils.safestring import mark_safe
 
 class BlogAdmin(admin.ModelAdmin):
+    form = BlogForm  # Blog modelinde kullanılacak form olarak BlogForm'u ayarla
     list_display = ("title","is_active","is_home","slug","selected_categories",)
     list_editable = ("is_active","is_home")
     search_fields = ("title","description")

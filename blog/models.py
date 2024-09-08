@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 
-# Create your models here.
 
 class Category(models.Model):
     name = models.CharField(max_length=150)
@@ -25,11 +24,14 @@ class Blog(models.Model):
     slug = models.SlugField(null=True, blank=True, unique=True, db_index=True, editable=False)
     categories = models.ManyToManyField(Category, blank=True)
 
-    def __str__(self):
+    def __str__(self):  
         return f"{self.title}"
     
     def save(self, *args, **kwargs):
+        # Slug oluşturulurken başlık alanını kullan
         self.slug = slugify(self.title)
+
+        # Diğer işlemleri yapıp ve kaydeter
         super().save(*args, **kwargs)
 
 
